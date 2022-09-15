@@ -1,7 +1,9 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const util = require("util");
+const writeFileREADME = util.promisify(fs.writeFile);
 
-const generateHTML = ({
+const generateMD = ({
   project,
   description,
   use,
@@ -12,6 +14,7 @@ const generateHTML = ({
   contributing,
   contributing1,
   contributing2,
+  tests,
 }) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -34,6 +37,8 @@ const generateHTML = ({
       <li class="list-group-item"><a href="#contributing">Contributing to READMEGenerator</a></li> 
       <li class="list-group-item"><a href="#contributing1">Github Flow for Pull Requests</a></li>
       <li class="list-group-item"><a href="#contributing2">Resolving Bugs</a></li>
+      <li class="list-group-item"><a href="#test">Testing</a></li>
+      <li class="list-group-item"><a href="#questions">Questions</a></li>
       
       
       <li class="list-group-item"><li class="list-group-item" id="installation"><h2>Installation Guidelines</h2>${install}</li>
@@ -41,8 +46,9 @@ const generateHTML = ({
       <li class="list-group-item"><li class="list-group-item" id="license"><h2>License</h2> ${license}</a></li>
       <li class="list-group-item"><li class="list-group-item" 
       id="contributing"><h2>Contributing to READMEGenerator</h2>${contributing}</li><li class="list-group-item" id="contributing1"><h2>Github Flow for Pull Requests</h2>${contributing1}</li><li class="list-group-item" id="contributing2"><h2>Resolving Bugs</h2>${contributing2}</li></li>
-      <li class="list-group-item"><a href="#github">My GitHub username is ${github}</a></li>
-      <li class="list-group-item"><a href="#linkedin">LinkedIn: ${linkedin}</a></li>
+      <li class="list-group-item" id="test"><h2>Testing</h2>${tests}</li></li>
+      <li class="list-group-item" id="questions"><h2>Questions</h2>My GitHub username is: ${github}</a></li>
+      <li class="list-group-item">LinkedIn: ${linkedin}</a></li></li>
    
     </ul>
   </div>
@@ -76,6 +82,7 @@ inquirer
       type: "input",
       name: "license",
       message: "What licensing are you utilizing for the project?",
+      choices: ["ISC", "Mozilla", "MIT"],
     },
     {
       type: "input",
@@ -95,7 +102,7 @@ inquirer
     {
       type: "input",
       name: "tests",
-      message: "What is the protocol for resolving bugs?",
+      message: "What are the test instructions for your project?",
     },
     {
       type: "input",
@@ -109,9 +116,16 @@ inquirer
     },
   ])
   .then((answers) => {
-    const htmlPageContent = generateHTML(answers);
+    const READMEContent = generateMD(answers);
 
-    fs.writeFile("index.html", htmlPageContent, (err) =>
+    fs.writeFile("README.md", READMEContent, (err) =>
       err ? console.log(err) : console.log("Successfully created index.html!")
     );
   });
+
+questions()
+  .then((answers) => writeFileREADME("README.md", generateMD(answers)))
+  .then(() => console.log("completed"))
+  .catch((err) => console.error(err));
+
+module.exports = generateMD;
