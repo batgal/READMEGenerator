@@ -16,22 +16,7 @@ const generateMD = ({
   contributing2,
   tests,
 }) =>
-  `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Document</title>
-</head>
-<body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Project Title: ${project}</h1>
-    <p class="lead">Description: ${description}</p>
-    <h3>README <span class="badge badge-secondary">Generator</span></h3>
-    <ul class="list-group"> <h2>Table of Contents</h2>
-      <li class="list-group-item"><a href="#installation">Installation</a></li>
+<li class="list-group-item"><a href="#installation">Installation</a></li>
       <li class="list-group-item"><a href="#usage">Usage</a></li>
       <li class="list-group-item"><a href="#license">License</a></li>
       <li class="list-group-item"><a href="#contributing">Contributing to READMEGenerator</a></li> 
@@ -41,20 +26,15 @@ const generateMD = ({
       <li class="list-group-item"><a href="#questions">Questions</a></li>
       
       
-      <li class="list-group-item"><li class="list-group-item" id="installation"><h2>Installation Guidelines</h2>${install}</li>
-      <li class="list-group-item"><li class="list-group-item" id="usage"><h2>Usage</h2>${use}</li>
-      <li class="list-group-item"><li class="list-group-item" id="license"><h2>License</h2> ${license}</a></li>
+      <li class="list-group-item"><li class="list-group-item" id="installation"><h2>Installation Guidelines</h2>f</li>
+      <li class="list-group-item"><li class="list-group-item" id="usage"><h2>Usage</h2>f</li>
+      <li class="list-group-item"><li class="list-group-item" id="license"><h2>License</h2> f</a></li>
       <li class="list-group-item"><li class="list-group-item" 
-      id="contributing"><h2>Contributing to READMEGenerator</h2>${contributing}</li><li class="list-group-item" id="contributing1"><h2>Github Flow for Pull Requests</h2>${contributing1}</li><li class="list-group-item" id="contributing2"><h2>Resolving Bugs</h2>${contributing2}</li></li>
-      <li class="list-group-item" id="test"><h2>Testing</h2>${tests}</li></li>
-      <li class="list-group-item" id="questions"><h2>Questions</h2>My GitHub username is: ${github}</a></li>
-      <li class="list-group-item">LinkedIn: ${linkedin}</a></li></li>
+      id="contributing"><h2>Contributing to READMEGenerator</h2>f</li><li class="list-group-item" id="contributing1"><h2>Github Flow for Pull Requests</h2>f</li><li class="list-group-item" id="contributing2"><h2>Resolving Bugs</h2>f</li></li>
+      <li class="list-group-item" id="test"><h2>Testing</h2>f</li></li>
+      <li class="list-group-item" id="questions"><h2>Questions</h2>My GitHub username is: f</a></li>
+      <li class="list-group-item">LinkedIn: f</a></li></li>
    
-    </ul>
-  </div>
-</div>
-</body>
-</html>`;
 
 inquirer
   .prompt([
@@ -119,13 +99,14 @@ inquirer
     const READMEContent = generateMD(answers);
 
     fs.writeFile("README.md", READMEContent, (err) =>
-      err ? console.log(err) : console.log("Successfully created index.html!")
+      err ? console.log(err) : console.log("Successfully created README.md!")
     );
   });
 
-questions()
+questions(){
   .then((answers) => writeFileREADME("README.md", generateMD(answers)))
-  .then(() => console.log("completed"))
-  .catch((err) => console.error(err));
+    .then(() => console.log("completed"))
+    .catch((err) => console.error(err));
+}
 
 module.exports = generateMD;
