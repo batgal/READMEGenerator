@@ -3,41 +3,8 @@ const fs = require("fs");
 const util = require("util");
 const writeFileREADME = util.promisify(fs.writeFile);
 
-const generateMD = ({
-  project,
-  description,
-  use,
-  install,
-  github,
-  linkedin,
-  license,
-  contributing,
-  contributing1,
-  contributing2,
-  tests,
-}) =>
-<li class="list-group-item"><a href="#installation">Installation</a></li>
-      <li class="list-group-item"><a href="#usage">Usage</a></li>
-      <li class="list-group-item"><a href="#license">License</a></li>
-      <li class="list-group-item"><a href="#contributing">Contributing to READMEGenerator</a></li> 
-      <li class="list-group-item"><a href="#contributing1">Github Flow for Pull Requests</a></li>
-      <li class="list-group-item"><a href="#contributing2">Resolving Bugs</a></li>
-      <li class="list-group-item"><a href="#test">Testing</a></li>
-      <li class="list-group-item"><a href="#questions">Questions</a></li>
-      
-      
-      <li class="list-group-item"><li class="list-group-item" id="installation"><h2>Installation Guidelines</h2>f</li>
-      <li class="list-group-item"><li class="list-group-item" id="usage"><h2>Usage</h2>f</li>
-      <li class="list-group-item"><li class="list-group-item" id="license"><h2>License</h2> f</a></li>
-      <li class="list-group-item"><li class="list-group-item" 
-      id="contributing"><h2>Contributing to READMEGenerator</h2>f</li><li class="list-group-item" id="contributing1"><h2>Github Flow for Pull Requests</h2>f</li><li class="list-group-item" id="contributing2"><h2>Resolving Bugs</h2>f</li></li>
-      <li class="list-group-item" id="test"><h2>Testing</h2>f</li></li>
-      <li class="list-group-item" id="questions"><h2>Questions</h2>My GitHub username is: f</a></li>
-      <li class="list-group-item">LinkedIn: f</a></li></li>
-   
-
-inquirer
-  .prompt([
+const questions = () =>
+  inquirer.prompt([
     {
       type: "input",
       name: "project",
@@ -91,22 +58,35 @@ inquirer
     },
     {
       type: "input",
-      name: "linkedin",
-      message: "Enter your LinkedIn URL.",
+      name: "email",
+      message: "Enter your email address.",
     },
-  ])
-  .then((answers) => {
-    const READMEContent = generateMD(answers);
+  ]);
 
-    fs.writeFile("README.md", READMEContent, (err) =>
-      err ? console.log(err) : console.log("Successfully created README.md!")
-    );
-  });
+questions()
+  .then((data) => writeFileREADME("README.md", generateMD(data)))
+  .then(() => console.log("completed"))
+  .catch((err) => console.error(err));
 
-questions(){
-  .then((answers) => writeFileREADME("README.md", generateMD(answers)))
-    .then(() => console.log("completed"))
-    .catch((err) => console.error(err));
+function generateMD(data) {
+  return `# ${data.project}
+## Installation Guidelines
+${data.install}
+## Usage
+${data.use}
+## License
+${data.license}
+## Contributing to READMEGenerator
+${data.contributing}
+## Github Flow for Pull Requests
+${data.contributing1}
+## Resolving Bugs
+${data.contributing2}
+## Testing
+${data.tests}
+## Questions
+Github Username: ${data.github}
+Email: ${data.email}
+`;
 }
-
 module.exports = generateMD;
