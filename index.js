@@ -70,9 +70,13 @@ questions()
 
 function generateMD(data) {
   return `# ${data.project}
-## Installation Guidelines
+# Table of Contents
+
+1. [Installation Guidelines](#installation-guidelines)
+2. [Usage](#usage)
+## Installation Guidelines<a name="installation-guidelines"></a>
 ${data.install}
-## Usage
+## Usage <a name="usage"></a>
 ${data.use}
 ## License
 ${data.license}
