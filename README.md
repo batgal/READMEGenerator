@@ -30,7 +30,7 @@ An application that creates a professional and organized REAME.md based on the u
 ### Usage <a id="usage"></a>
 
 To be utilized by bootcamp students and beyond
-![screenshot of README Generator app in use](READMEScreenshot.png)
+![screenshot of README Generator app in use](./README.png)
 
 ### License <a id="license"></a>
 
