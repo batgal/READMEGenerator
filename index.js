@@ -28,7 +28,8 @@ const questions = () =>
     {
       type: "input",
       name: "license",
-      message: "What licensing are you utilizing for the project?",
+      message:
+        "What licensing are you utilizing for the project? (available choices: ISC, Mozilla, MIT)",
       choices: ["ISC", "Mozilla", "MIT"],
     },
     {
@@ -70,25 +71,42 @@ questions()
 
 function generateMD(data) {
   return `# ${data.project}
-# Table of Contents
+## Description
+${data.description}
+## Table of Contents
 
 1. [Installation Guidelines](#installation-guidelines)
 2. [Usage](#usage)
-## Installation Guidelines<a name="installation-guidelines"></a>
+3. [License](#license)
+4. [Contributing to READMEGenerator](#contribute)
+5. [Github Flow for Pull Requests](#contribute1)
+6. [Resolving Bugs](#contribute2)
+7. [Testing](#tests)
+8. [Questions](#questions)
+
+
+
+
+### Installation Guidelines <a id="installation-guidelines"></a>
 ${data.install}
-## Usage <a name="usage"></a>
+
+
+### Description
+${data.description}
+### Usage <a id="usage"></a>
 ${data.use}
-## License
+### License <a id="license"></a>
 ${data.license}
-## Contributing to READMEGenerator
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+### Contributing to READMEGenerator <a id="contribute"></a>
 ${data.contributing}
-## Github Flow for Pull Requests
+### Github Flow for Pull Requests <a id="contribute1"></a>
 ${data.contributing1}
-## Resolving Bugs
+### Resolving Bugs <a id="contribute2"></a>
 ${data.contributing2}
-## Testing
+### Testing <a id="tests"></a>
 ${data.tests}
-## Questions
+### Questions <a id="questions"></a>
 Github Username: ${data.github}
 Email: ${data.email}
 `;
